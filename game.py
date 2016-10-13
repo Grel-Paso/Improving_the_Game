@@ -248,17 +248,22 @@ def execute_take(item_id):
     """This function takes an item_id as an argument and moves this item from the
     list of items in the current room to the player's inventory. However, if
     there is no such item in the room, this function prints
-    "You cannot take that."
-    """
+    "You cannot take that.
+    """    
     
+    item_matches = 0
+
     for item in current_room["items"]:
     	if item_id == item["id"]:
     		inventory.append(item)
     		current_room["items"].remove(item)
+    		item_matches = 1
     	else:
-    		print("You cannot take that.")
-    		break
-    
+    		pass
+
+    if item_matches == 0:
+    	print("You cannot take that.")
+
 
 def execute_drop(item_id):
     """This function takes an item_id as an argument and moves this item from the
@@ -266,13 +271,18 @@ def execute_drop(item_id):
     no such item in the inventory, this function prints "You cannot drop that."
     """
     
+    item_matches = 0
+
     for item in inventory:
     	if item_id == item["id"]:
     		current_room["items"].append(item)
     		inventory.remove(item)
+    		item_matches = 1
     	else:
-    		print("You cannot drop that.")
-    		break
+    		pass
+
+    if item_matches == 0:
+    	print("You cannot drop that.")
 
     
 def execute_command(command):
